@@ -35,7 +35,7 @@ const Content = styled.div`
 
 function App(props) {
   const { uploadStatus, initFileUpload, dataIsNull } = props;
-  console.log(dataIsNull, "dataIsNull");
+
   const fileUploadHandler = file => {
     const formData = new FormData();
     formData.append("file", file);
@@ -49,7 +49,7 @@ function App(props) {
         rightDiv={() => (
           <FileUpload
             uploadStatus={uploadStatus}
-            reTryUpload={() => console.log("Retry")}
+            reTryUpload={() => {}} // yet to complete
             fileUploadCallBack={file => fileUploadHandler(file)}
             {...props}
           />
@@ -86,7 +86,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 App.propTypes = {
   uploadStatus: PropTypes.string,
-  initFileUpload: PropTypes.func
+  initFileUpload: PropTypes.func,
+  dataIsNull: PropTypes.bool
 };
 
 App.defaultProps = {
