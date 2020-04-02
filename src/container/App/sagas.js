@@ -1,13 +1,9 @@
 import fetch from "../../utils/axiosUtil";
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import actions from "./actions";
-import {
-  FILE_DATA_CHANGED,
-  FILTER_CHANGED,
-  UPLOAD_FILE,
-  GET_DATA
-} from "./constants";
+import { FILTER_CHANGED, UPLOAD_FILE, GET_DATA } from "./constants";
 import fetchStatus from "../../constants/fetchStatus";
+import { SuccessToast, ErrorToast, InfoToast } from "../../utils/toastUtil";
 
 function upload(data) {
   return fetch.request({
@@ -32,8 +28,10 @@ function* fileUpload(action) {
     yield call(upload, payload);
     yield put(actions.GET_DATA());
     yield put(actions.UPLOAD_STATUS_CHANGED(fetchStatus.SUCCESS));
+    SuccessToast("Upload was successful");
   } catch (error) {
     yield put(actions.UPLOAD_STATUS_CHANGED(fetchStatus.FAILED));
+    ErrorToast("Upload failed");
   }
 }
 
@@ -45,8 +43,10 @@ function* fetchData() {
     } = yield call(getData);
     yield put(actions.FILE_DATA_CHANGED(data));
     yield put(actions.FETCH_STATUS_CHANGED(fetchStatus.SUCCESS));
+    InfoToast("New data loaded");
   } catch (error) {
     yield put(actions.FETCH_STATUS_CHANGED(fetchStatus.FAILED));
+    ErrorToast("Data load failed");
   }
 }
 
