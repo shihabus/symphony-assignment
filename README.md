@@ -4,18 +4,20 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Run both client and server in development mode. <br/>
+Client is normally started in `http://localhost:3000` <br/>
+Server is normally started in `http://localhost:3030` <br/>
 
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm coverage`
+
+To generate test coverage report.<br />
 
 ### `npm run build`
 
