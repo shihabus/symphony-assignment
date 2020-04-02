@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiOutlineReload } from "react-icons/ai";
@@ -6,10 +5,11 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { FileDropper, FilePicker } from "../index";
 import fileFormatChecker from "../../utils/fileTypeCheck";
 import FETCH_STATUS from "../../constants/fetchStatus";
+import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
-  width: ${props => props.compWidth};
-  height: ${props => props.compHeight};
+  width: 100%;
+  height: 100%;
   background: #e1e1e1;
   display: flex;
   justify-content: center;
@@ -31,7 +31,7 @@ const ReloadWrapper = styled(WrongFile)`
 `;
 
 export default function Index(props) {
-  const { onFileUploadCallBack, uploadStatus, reTryUpload } = props;
+  const { fileUploadCallBack, uploadStatus, reTryUpload } = props;
   const [file, setFile] = useState(null);
   const [isTxt, setIsTxt] = useState(null);
 
@@ -43,7 +43,7 @@ export default function Index(props) {
 
   useEffect(() => {
     if (isTxt) {
-      onFileUploadCallBack(file);
+      fileUploadCallBack(file);
       setFile(null);
     }
   }, [isTxt]);
@@ -69,13 +69,13 @@ export default function Index(props) {
     return (
       <Wrapper {...props}>
         {!isTxt && wrongFile()}
-        {isTxt && <div>Ok</div>}
+        {isTxt && showUpload()}
       </Wrapper>
     );
   }
 
   return (
-    <Wrapper {...props}>
+    <Wrapper>
       {uploadStatus === FETCH_STATUS.IN_PROGRESS && <div>Loading...</div>}
       {uploadStatus === FETCH_STATUS.FAILED && (
         <ReloadWrapper onClick={reTryUpload}>
@@ -88,7 +88,8 @@ export default function Index(props) {
   );
 }
 
-Index.defaultProps = {
-  compWidth: "10rem",
-  compHeight: "4.5rem"
+Index.propTypes = {
+  fileUploadCallBack: PropTypes.func,
+  uploadStatus: PropTypes.string,
+  reTryUpload: PropTypes.func
 };

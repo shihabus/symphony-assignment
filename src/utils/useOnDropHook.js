@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-use-before-define */
-
 import { useState, useEffect } from "react";
 import _ from "lodash";
 
