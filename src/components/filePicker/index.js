@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,11 +27,15 @@ export default function Index(props) {
         accept="text/plain"
         onChange={event => onChangeHandler(event.target.files[0])}
       />
-      <p>Click to Upload</p>
+      <p>Click/Drop to upload</p>
     </Wrapper>
   );
 }
 
 Index.defaultProps = {
   onChangeHandler: () => {}
+};
+
+Index.propTypes = {
+  onChangeHandler: PropTypes.func
 };

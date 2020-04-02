@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import useOnDropHook from "../../utils/useOnDropHook";
 import { FiUpload } from "react-icons/fi";
-import _ from "lodash";
+import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -29,8 +28,6 @@ export default function Index(props) {
   const parentDiv = useRef(null);
   const [_isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState(null);
-
-  // text / plain;
 
   const isDragging = useOnDropHook(parentDiv, setFile.bind(this));
 
@@ -60,3 +57,10 @@ export default function Index(props) {
     </Wrapper>
   );
 }
+
+Index.propTypes = {
+  onFileDropCallBack: PropTypes.func
+};
+Index.defaultProps = {
+  onFileDropCallBack: () => {}
+};

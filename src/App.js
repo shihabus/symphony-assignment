@@ -1,43 +1,25 @@
 import React from "react";
-import styled from "styled-components";
-import { FileUpload } from "./components";
-import FETCH_STATUS from "./constants/fetchStatus";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import RootApp from "./container/App";
 
-const Wrapper = styled.div`
-  height: 100%;
-  background: red;
-  display: grid;
-  grid-template-rows: 10vh calc(100% - (0.5rem+5%));
-  grid-gap: 0.5rem;
-  grid-template-areas: "nav" "table";
-`;
+import configureStore from "./store/configureStore";
 
-const Nav = styled.div`
-  grid-area: nav;
-  background: white;
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem;
-`;
+// Create redux store with history
+const initialState = {};
+const { store, persistor } = configureStore(initialState);
 
-function App() {
+function Index() {
   return (
-    <Wrapper>
-      <Nav>
-        File Drop
-        <FileUpload
-          onFileUploadCallBack={file =>
-            console.log("onFileUploadCallBack", file)
-          }
-          uploadStatus={FETCH_STATUS.SUCCESS}
-          reTryUpload={() => console.log("Retry")}
-        />
-      </Nav>
-      Hello
-    </Wrapper>
+    <Provider store={store}>
+      <ToastContainer />
+      <PersistGate loading={null} persistor={persistor}>
+        <RootApp />
+      </PersistGate>
+    </Provider>
   );
 }
 
-export default App;
+export default Index;
